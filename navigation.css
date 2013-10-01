@@ -34,11 +34,6 @@
     padding:2px;
 }
 
-#navigationpanel .separator td{
-    height:10px;
-    border-bottom: 1px solid #E3E3E3;
-}
-
 #navigationpanel .result .hover{
     background-color:#E3E3E3;
     cursor:pointer;

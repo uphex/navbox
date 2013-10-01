@@ -63,7 +63,7 @@ function changed(element,maxresults){
                     
                     //After the last group, no separator is needed
                     if(index!=list.length-1){
-                        $('<tr class="separator"><td colspan="4"/></tr>').appendTo(groupTable);
+                        $('<tr class=""><td colspan="4"><hr/></td>></tr>').appendTo(groupTable);
                     }
                 });
                 
