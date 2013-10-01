@@ -1,0 +1,54 @@
+{
+"results2":[],
+  "results":[
+    {
+      "type"   : "agency",
+      "name"   : "Globodyne Agency",
+      "logo"   : {"src": "http://www.usip.org/sites/default/files/file/logo.jpg"},
+      "src":    "/agencies/1"
+    },
+    {
+      "type"   : "metric",
+      "name"   : "Google Analytics: Recent Visits",
+      "summary": {"type": "link", "value": "configure", "src": "/metrics/9/settings"},
+      "src":    "/metrics/124"
+    },
+    {
+      "type"   : "client",
+      "name"   : "Chipotle",
+      "summary": {"type": "health", "value": "0.65", "status": "warning"},
+      "logo"   : {"src": "http://www.vectortemplates.com/raster/batman-logo-big.gif"},
+      "src":    "/clients/4"
+    },
+    {
+      "type"   : "client",
+      "name"   : "Gobias Industries",
+      "summary": {"type": "health", "value": "0.92", "status": "good"},
+      "src":    "/clients/5"
+    },
+    {
+      "type"   : "client",
+      "name"   : "IX Foundation",
+      "summary": {"type": "health", "value": "0.17", "status": "bad"},
+      "src":    "/clients/6"
+    },
+    {
+      "type"   : "client",
+      "name"   : "New York Times",
+      "summary": {"type": "health", "value": "0.11", "status": "bad"},
+      "src":    "/clients/7"
+    },
+    {
+      "type"   : "client",
+      "name"   : "Yves Delorme",
+      "summary": {"type": "health", "value": "0.89", "status": "good"},
+      "src":    "/clients/8"
+    },
+    {
+      "type"   : "stream",
+      "name"   : "Google Analytics: www",
+      "summary": {"type": "link", "value": "configure", "src": "/metrics/9/settings"},
+      "src":    "/metrics/124"
+    }
+  ]
+}
