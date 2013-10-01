@@ -69,30 +69,46 @@ function changed(element,maxresults){
     
 function navbox(element,def,maxresults){
     element.addClass('navigation');
-    var input=$('<input type="text" onclick="select()">');
-    //For debounce
-    var timer;
-    input.bind('input',function(){
-        if(timer) clearTimeout(timer);
-        timer = setTimeout(function(){changed(element,maxresults);}, 300);
-    });
-    input.appendTo(element).val(def);
+    var span=$('<span/>').text(def);
+    var input=$('<input type="text" onclick="select()">').appendTo(element).hide();
+    
     $('<img src="ajax-loader.gif" class="ajax-loader"/>').appendTo(element).hide();
-    var closetext=$('<span class="closetext">X</span>').appendTo(element).hide();
-    
-    closetext.click(function(){
-        $('#navigationpanel').hide();
+    var closetext=$('<span class="closetext">X</span>').appendTo(element).hide();    
+        
+    span.click(function(){
+        span.hide();
+        input.show();
+        //For debounce
+        var timer;
+        input.bind('input',function(){
+            if(timer) clearTimeout(timer);
+            timer = setTimeout(function(){changed(element,maxresults);}, 300);
+        });
         input.val(def);
-        closetext.hide();
-    });
-    
-    input.blur(function(){
-        setTimeout(function(){
+
+        
+        var hidenavigation=function(){
             $('#navigationpanel').hide();
             input.val(def);
             closetext.hide();
-        },100);
-
+            span.show();
+            input.hide();
+        }
+        
+        closetext.click(function(){
+            hidenavigation();
+        });
+        
+        input.blur(function(){
+            setTimeout(function(){
+                hidenavigation();
+            },100);
+    
+        });
+        
+        input.select();
     });
+    span.appendTo(element);
+    
     
 }
