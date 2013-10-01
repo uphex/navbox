@@ -1,14 +1,17 @@
 function changed(element,maxresults){
+    //For empty text, no result will be shown
     if(element.find('input').val()===""){
         $('#navigationpanel').hide();
     }else{
         element.find(".ajax-loader").show();
         $.get('search.json','q='+encodeURIComponent(element.find('input').val()),function(result){
             element.find(".ajax-loader").hide();
+            //If the navigation panel is not present, create it
             if($('#navigationpanel').length==0){
                 $('<div id="navigationpanel"/>').appendTo($(document.body));
             }
             
+            //If the input has lost focus since the AJAX was initiated, then no result is shown
             if(element.find('input').is(":focus")){
             
                 var navigationpanel=$('#navigationpanel');
@@ -25,6 +28,7 @@ function changed(element,maxresults){
                 var groupTable=$('<tbody/>').appendTo($('<table/>').appendTo(navigationpanel));
                 var elementsGrouped=_.groupBy(_.first(res.results,maxresults),"type");
                 _.each(_.keys(elementsGrouped),function(key,index,list){
+                    //It indicates that this is the first row for the group, thus the group name should be added too
                     var first=true;
                     _.each(elementsGrouped[key],function(element){
                         var row=$('<tr class="result"></tr>').appendTo(groupTable);
@@ -41,12 +45,14 @@ function changed(element,maxresults){
                             $('<td/>').appendTo(row);
                         }
                         
+                        //Hover handling, :hover is not efficient, as not all tds are needed to be shaded
                         row.find('td:gt(0)').hover(function(){
                             row.find('td:gt(0)').addClass('hover');
                         },function(){
                             row.find('td:gt(0)').removeClass('hover');
                         });
                         
+                        //Clicking on an anchor should navigate to the anchor's href
                         row.find('td:gt(0)').click(function(a){
                             if($(a.toElement).prop("tagName").toUpperCase()!="A"){
                                 window.location.href=element.src;
@@ -54,6 +60,8 @@ function changed(element,maxresults){
                         });
                         first=false;
                     });
+                    
+                    //After the last group, no separator is needed
                     if(index!=list.length-1){
                         $('<tr class="separator"><td colspan="4"/></tr>').appendTo(groupTable);
                     }
@@ -69,7 +77,9 @@ function changed(element,maxresults){
     
 function navbox(element,def,maxresults){
     element.addClass('navigation');
+    //Span before clicked
     var span=$('<span/>').text(def);
+    //Input after clicked
     var input=$('<input type="text" onclick="select()">').appendTo(element).hide();
     
     $('<img src="ajax-loader.gif" class="ajax-loader"/>').appendTo(element).hide();
@@ -86,7 +96,6 @@ function navbox(element,def,maxresults){
         });
         input.val(def);
 
-        
         var hidenavigation=function(){
             $('#navigationpanel').hide();
             input.val(def);
@@ -100,6 +109,7 @@ function navbox(element,def,maxresults){
         });
         
         input.blur(function(){
+            //Hacky, needed because without it the click events wouldn't be firing to navigate away
             setTimeout(function(){
                 hidenavigation();
             },100);
