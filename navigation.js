@@ -78,7 +78,7 @@ function changed(element,maxresults){
 function navbox(element,def,maxresults){
     element.addClass('navigation');
     //Span before clicked
-    var span=$('<span/>').text(def);
+    var span=$('<div class="placeholder"><img src="search.png" class="searchicon"/><span>'+def+'</span><img src="select.png" class="selecticon"/></div>');
     //Input after clicked
     var input=$('<input type="text" onclick="select()">').appendTo(element).hide();
     
@@ -87,6 +87,7 @@ function navbox(element,def,maxresults){
         
     span.click(function(){
         span.hide();
+        input.width((element.width()-40)+'px');
         input.show();
         //For debounce
         var timer;
