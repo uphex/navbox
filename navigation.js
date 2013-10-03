@@ -7,7 +7,7 @@ function changed(element,maxresults){
         $.get('search.json','q='+encodeURIComponent(element.find('input').val()),function(result){
             element.find(".ajax-loader").hide();
             //If the navigation panel is not present, create it
-            if($('#navigationpanel').length==0){
+            if($('#navigationpanel').length===0){
                 $('<div id="navigationpanel"/>').appendTo($(document.body));
             }
             
@@ -20,8 +20,15 @@ function changed(element,maxresults){
                 navigationpanel.empty();
                 navigationpanel.css('top',element.find('input')[0].getBoundingClientRect().bottom+'px');
                 navigationpanel.css('left',element.find('input')[0].getBoundingClientRect().left+'px');
-                var res=JSON.parse(result);
-                if(res.results.length==0){
+                
+                var res;
+                if (typeof result === 'string') {
+                    res=JSON.parse(result);
+                } else {
+                    res=result;
+                }
+
+                if(res.results.length===0){
                     $('<div class="noresults">No results</div>').appendTo(navigationpanel);
                 }
                 
@@ -83,11 +90,12 @@ function navbox(element,def,maxresults){
     var input=$('<input type="text" onclick="select()">').appendTo(element).hide();
     
     $('<img src="ajax-loader.gif" class="ajax-loader"/>').appendTo(element).hide();
-    var closetext=$('<span class="closetext">X</span>').appendTo(element).hide();    
+    var closetext=$('<span class="closetext">X</span>').appendTo(element).hide();
         
     span.click(function(){
-        span.hide();
-        input.width((element.width()-40)+'px');
+        //span.hide();
+        span.css("color", "transparent");
+        input.width((element.width()-30)+'px');
         input.show();
         //For debounce
         var timer;
@@ -101,9 +109,10 @@ function navbox(element,def,maxresults){
             $('#navigationpanel').hide();
             input.val(def);
             closetext.hide();
-            span.show();
+            //span.show();
+            span.removeAttr("style");
             input.hide();
-        }
+        };
         
         closetext.click(function(){
             hidenavigation();
